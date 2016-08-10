@@ -62,6 +62,35 @@ public class BinaryTree {
 		}
 	}
 	
+	/**
+	 * post order
+	 * @param args
+	 * ---
+	 * get the smallest first
+	 */
+	public void postOrderTraverse(Node focusNode){
+		if (focusNode != null){			
+			postOrderTraverse(focusNode.leftChild);			
+			postOrderTraverse(focusNode.rightChild);
+			System.out.println(focusNode);
+		}
+	}
+	
+	public Node findNode(int key){
+		Node focusNode = root;
+		while(focusNode.key != key){
+			if(key < focusNode.key){
+				focusNode = focusNode.leftChild;
+			}else{
+				focusNode = focusNode.rightChild;
+			}
+			
+			if(focusNode == null){
+				return null;
+			}
+		}
+		return focusNode;
+	}
 
 	public static void main(String [] args){
 		BinaryTree tree = new BinaryTree();
@@ -72,7 +101,17 @@ public class BinaryTree {
 		tree.addNode(75, "Sales Manager");
 		tree.addNode(85, "Salesman 1");
 		
+		tree.inOrderTraverse(tree.root);
+		System.out.println();
 		tree.preOrderTraverse(tree.root);
+		System.out.println();
+		tree.postOrderTraverse(tree.root);
+		
+		System.out.println("Seach for 15");
+		System.out.println(tree.findNode(15));
+		
+		System.out.println("Search for 100");
+		System.out.println(tree.findNode(100));
 	}
 }
 
