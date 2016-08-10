@@ -46,6 +46,21 @@ public class BinaryTree {
 			inOrderTraverse(focusNode.rightChild);
 		}
 	}
+	/**
+	 * preOrder
+	 * @param focusNode
+	 * -----
+	 * start from out root node
+	 * go down to most left
+	 * go down to most right
+	 */
+	public void preOrderTraverse(Node focusNode){
+		if (focusNode != null){
+			System.out.println(focusNode);
+			preOrderTraverse(focusNode.leftChild);			
+			preOrderTraverse(focusNode.rightChild);
+		}
+	}
 	
 
 	public static void main(String [] args){
@@ -57,7 +72,7 @@ public class BinaryTree {
 		tree.addNode(75, "Sales Manager");
 		tree.addNode(85, "Salesman 1");
 		
-		tree.inOrderTraverse(tree.root);
+		tree.preOrderTraverse(tree.root);
 	}
 }
 
