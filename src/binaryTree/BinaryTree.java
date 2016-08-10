@@ -91,6 +91,85 @@ public class BinaryTree {
 		}
 		return focusNode;
 	}
+	
+	public boolean remove(int key){
+		Node focusNode = root;
+		Node parent = root;
+		
+		boolean isLeft = true;
+		
+		while(focusNode.key != key){
+			parent = focusNode;
+			if(key < focusNode.key){
+				isLeft = true;
+				focusNode = focusNode.leftChild;
+			}else{
+				isLeft = false;
+				focusNode = focusNode.rightChild;
+			}
+			if(focusNode == null){
+				return false;
+			}
+		}
+		
+		if(focusNode.leftChild == null && focusNode.rightChild == null){
+			if(focusNode == root){
+				root = null;
+			}else if(isLeft){
+				parent.leftChild = null;
+			}else{
+				parent.rightChild = null;
+			}
+		}
+		else if(focusNode.rightChild == null){
+			if(focusNode == root){
+				root = focusNode.leftChild;
+			}else if(isLeft){
+				parent.leftChild = focusNode.leftChild;
+			}else{
+				parent.rightChild = focusNode.rightChild;
+			}
+		}else if(focusNode.leftChild == null){
+			if(focusNode == root){
+				root = focusNode.rightChild;
+			}else if(isLeft){
+				parent.leftChild = focusNode.rightChild;
+			}else{
+				parent.rightChild = focusNode.leftChild;
+			}
+		}else{
+			Node replacement = getReplacementNode(focusNode);
+			
+			if(focusNode == root){
+				root = replacement;
+			}else if(isLeft){
+				parent.leftChild = replacement;
+			}else{
+				parent.rightChild = replacement;
+			}
+			replacement.leftChild = focusNode.leftChild;
+		}
+		return true;
+	}
+	
+	public Node getReplacementNode(Node replacedNode){
+		Node replacementParent = replacedNode;
+		Node replacement = replacedNode;
+		
+		Node focusNode = replacedNode.rightChild;
+		
+		while(focusNode != null){
+			replacementParent = replacement;
+			replacement = focusNode;
+			focusNode = focusNode.leftChild;
+		}
+		
+		if(replacement != replacedNode.rightChild){
+			replacementParent.leftChild = replacement.rightChild;
+			replacement.rightChild = replacedNode.rightChild;
+		}
+		return replacement;
+	}
 
 	public static void main(String [] args){
 		BinaryTree tree = new BinaryTree();
@@ -101,7 +180,7 @@ public class BinaryTree {
 		tree.addNode(75, "Sales Manager");
 		tree.addNode(85, "Salesman 1");
 		
-		tree.inOrderTraverse(tree.root);
+		/*tree.inOrderTraverse(tree.root);
 		System.out.println();
 		tree.preOrderTraverse(tree.root);
 		System.out.println();
@@ -111,7 +190,12 @@ public class BinaryTree {
 		System.out.println(tree.findNode(15));
 		
 		System.out.println("Search for 100");
-		System.out.println(tree.findNode(100));
+		System.out.println(tree.findNode(100));*/
+		
+		System.out.println("Remove key 25");
+		tree.remove(25);
+		tree.inOrderTraverse(tree.root);
+		
 	}
 }
 
