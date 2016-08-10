@@ -16,7 +16,7 @@ public class BinaryTree {
 				parent = focusNode;
 				if(key < focusNode.key){
 					focusNode = focusNode.leftChild;
-					if(focusNode.leftChild == null){
+					if(focusNode == null){
 						parent.leftChild = newNode;
 						return;
 					}
@@ -30,9 +30,34 @@ public class BinaryTree {
 			}
 		}
 	}
+	
+	/**
+	 * In order traversal
+	 * @param args
+	 * ---------------------
+	 * Aim for the smallest value first
+	 * Start at 1st left child
+	 * when null reached then move up in value
+	 */
+	public void inOrderTraverse(Node focusNode){
+		if (focusNode != null){
+			inOrderTraverse(focusNode.leftChild);
+			System.out.println(focusNode);
+			inOrderTraverse(focusNode.rightChild);
+		}
+	}
+	
 
 	public static void main(String [] args){
+		BinaryTree tree = new BinaryTree();
+		tree.addNode(50, "Boss");
+		tree.addNode(25, "Vice president");
+		tree.addNode(15, "Office Manager");
+		tree.addNode(30, "Secretary");
+		tree.addNode(75, "Sales Manager");
+		tree.addNode(85, "Salesman 1");
 		
+		tree.inOrderTraverse(tree.root);
 	}
 }
 
