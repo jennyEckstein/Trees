@@ -30,23 +30,24 @@ public class BinaryTreeTest {
 	}
 
 	@Test
-	public void testDeleteRoot() {		
+	public void test_Delete_Root() {		
 		Assert.assertTrue(this.tree.remove(50));
 	}
 	
 	@Test
-	public void testDeleteChildWithChildren(){
+	public void test_Delete_Child_With_Children(){
 		Assert.assertTrue(this.tree.remove(25));
 	}
 	
 	@Test
-	public void testDeleteChildWithNoChildren(){
+	public void test_Delete_Child_With_No_Children(){
 		Assert.assertTrue(this.tree.remove(15));
 	}
 	
 	@Test
-	public void testDeleteNotExistantElement(){
+	public void test_Delete_Not_Existent_Element(){
 		Assert.assertTrue(!this.tree.remove(100));
 	}
+	
 
 }
